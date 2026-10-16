@@ -1,0 +1,109 @@
+@import 'tailwindcss';
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --animate-fade-in: fade-in 0.2s ease-out;
+  --animate-pop-in: pop-in 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes pop-in {
+    from {
+      opacity: 0;
+      transform: translateY(16px) scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Tailwind preflight가 초기화한 마크다운 목록 스타일 복구 */
+.wmde-markdown ul {
+  list-style: disc;
+}
+
+.wmde-markdown ol {
+  list-style: decimal;
+}
+
+/* 한글이 글자 중간에서 끊기지 않도록 단어(공백) 단위로 줄바꿈, 긴 문자열은 강제 줄바꿈 */
+.wmde-markdown {
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+/* 제목 앵커 링크 아이콘은 메모 뷰어/미리보기에서 불필요하므로 숨김 */
+.wmde-markdown .anchor {
+  display: none !important;
+}
+
+/* 모바일: 라이브 모드를 좌우 분할 대신 위아래 분할로 표시 */
+@media (max-width: 639px) {
+  .w-md-editor-show-live {
+    height: 520px !important;
+  }
+
+  .w-md-editor-show-live .w-md-editor-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .w-md-editor-show-live .w-md-editor-input,
+  .w-md-editor-show-live .w-md-editor-preview {
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+    flex: 1 1 50%;
+    min-height: 0;
+  }
+
+  .w-md-editor-show-live .w-md-editor-preview {
+    border-top: 1px solid var(--color-border-default, #d0d7de);
+    box-shadow: none !important;
+  }
+}
+
+/* Custom utilities */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
